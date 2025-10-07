@@ -53,9 +53,14 @@ const Contact = () => {
         throw new Error(result.error || 'Erro ao enviar mensagem');
       }
       
+      // Verificar se está em modo desenvolvimento
+      const isDev = import.meta.env.DEV;
+      
       toast({
-        title: "Mensagem enviada!",
-        description: "Entraremos em contato em breve.",
+        title: isDev ? "✅ Simulado (Dev)" : "Mensagem enviada!",
+        description: isDev 
+          ? "Modo desenvolvimento - Em produção será enviado para rodrigo.azevedo1988@gmail.com" 
+          : "Entraremos em contato em breve.",
       });
       
       setFormData({ name: "", email: "", phone: "", message: "" });
