@@ -1,5 +1,15 @@
 /**
- * Cloudflare Worker - Salva contatos e notifica
+ * Cloudflare Worker - Envia emails de contato via Web3Forms (gratuito)
+ * Fallback para FormSubmit se Web3Forms falhar
+ * 
+ * Setup:
+ * 1. Acesse https://web3forms.com/ e crie uma conta gratuita
+ * 2. Copie sua Access Key
+ * 3. No Cloudflare Pages: Settings > Environment Variables
+ *    - Adicione: WEB3FORMS_ACCESS_KEY = sua_key_aqui
+ * 
+ * Alternativa local (.env):
+ * WEB3FORMS_ACCESS_KEY=sua_key_aqui
  */
 
 interface EmailRequest {
@@ -9,10 +19,15 @@ interface EmailRequest {
   message: string;
 }
 
-export async function onRequestPost(context: { request: Request }) {
+interface Env {
+  WEB3FORMS_ACCESS_KEY?: string;
+}
+
+export async function onRequestPost(context: { request: Request; env: Env }) {
   try {
     const body = await context.request.json() as EmailRequest;
     
+    // Validação
     if (!body.name || !body.email || !body.phone || !body.message) {
       return new Response(
         JSON.stringify({ error: "Todos os campos são obrigatórios" }),
@@ -40,30 +55,98 @@ export async function onRequestPost(context: { request: Request }) {
     console.log("🎯 Destino: rodrigo.azevedo1988@gmail.com");
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
-    // Enviar para webhook que encaminha email (FormSubmit confirmado)
-    try {
-      const formData = new URLSearchParams();
-      formData.append("_email", "rodrigo.azevedo1988@gmail.com");
-      formData.append("_subject", `[Contato Site] ${body.name}`);
-      formData.append("name", body.name);
-      formData.append("email", body.email);
-      formData.append("phone", body.phone);
-      formData.append("message", body.message);
-      formData.append("_template", "box");
-      formData.append("_captcha", "false");
+    let emailSent = false;
+    let emailService = "";
 
-      await fetch("https://formsubmit.co/ajax/rodrigo.azevedo1988@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString(),
-      });
+    // MÉTODO 1: Web3Forms (recomendado - mais confiável)
+    const web3formsKey = context.env.WEB3FORMS_ACCESS_KEY;
+    
+    if (web3formsKey) {
+      try {
+        const web3formsData = {
+          access_key: web3formsKey,
+          subject: `[Contato Site] ${body.name}`,
+          from_name: "OpenLeads Strategy Hub",
+          email: "rodrigo.azevedo1988@gmail.com", // Seu email que receberá
+          name: body.name,
+          replyto: body.email, // Email do cliente para você responder
+          phone: body.phone,
+          message: body.message,
+          // Campos adicionais para melhor organização
+          botcheck: "", // Anti-spam
+        };
 
-      console.log("✅ Enviado via FormSubmit");
-    } catch (e) {
-      console.log("⚠️ FormSubmit falhou (não crítico)");
+        const web3Response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(web3formsData),
+        });
+
+        const web3Result = await web3Response.json();
+
+        if (web3Response.ok && web3Result.success) {
+          console.log("✅ Enviado via Web3Forms");
+          emailSent = true;
+          emailService = "Web3Forms";
+        } else {
+          console.warn("⚠️ Web3Forms falhou:", web3Result.message);
+        }
+      } catch (e) {
+        console.warn("⚠️ Web3Forms error:", e);
+      }
+    } else {
+      console.log("⚠️ WEB3FORMS_ACCESS_KEY não configurada, tentando fallback...");
     }
 
-    console.log("✅ CONTATO PROCESSADO COM SUCESSO");
+    // MÉTODO 2: FormSubmit (fallback)
+    if (!emailSent) {
+      try {
+        const formData = new URLSearchParams();
+        formData.append("_email", "rodrigo.azevedo1988@gmail.com");
+        formData.append("_subject", `[Contato Site] ${body.name}`);
+        formData.append("name", body.name);
+        formData.append("email", body.email);
+        formData.append("phone", body.phone);
+        formData.append("message", body.message);
+        formData.append("_template", "box");
+        formData.append("_captcha", "false");
+
+        const formSubmitResponse = await fetch("https://formsubmit.co/ajax/rodrigo.azevedo1988@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData.toString(),
+        });
+
+        if (formSubmitResponse.ok) {
+          console.log("✅ Enviado via FormSubmit (fallback)");
+          emailSent = true;
+          emailService = "FormSubmit";
+        } else {
+          console.warn("⚠️ FormSubmit também falhou");
+        }
+      } catch (e) {
+        console.warn("⚠️ FormSubmit error:", e);
+      }
+    }
+
+    if (!emailSent) {
+      console.error("❌ TODOS OS MÉTODOS DE ENVIO FALHARAM");
+      return new Response(
+        JSON.stringify({ 
+          success: false,
+          error: "Erro ao enviar email. Tente novamente mais tarde."
+        }),
+        { 
+          status: 500, 
+          headers: { 
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          } 
+        }
+      );
+    }
+
+    console.log(`✅ CONTATO PROCESSADO COM SUCESSO (via ${emailService})`);
 
     return new Response(
       JSON.stringify({ 
@@ -71,7 +154,8 @@ export async function onRequestPost(context: { request: Request }) {
         message: "Mensagem enviada! Entraremos em contato em breve.",
         data: {
           timestamp,
-          name: body.name
+          name: body.name,
+          service: emailService
         }
       }),
       { 

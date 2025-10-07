@@ -38,27 +38,43 @@ const Contact = () => {
       const validatedData = contactSchema.parse(formData);
       setIsSubmitting(true);
       
-      // Enviar via backend do Cloudflare
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(validatedData),
-      });
+      // Timeout de 15 segundos para evitar espera infinita
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      try {
+        // Enviar via backend do Cloudflare
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(validatedData),
+          signal: controller.signal,
+        });
 
-      const result = await response.json();
+        clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Erro ao enviar mensagem');
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Erro ao enviar mensagem');
+        }
+        
+        toast({
+          title: "✅ Mensagem enviada!",
+          description: "Recebemos seu contato e responderemos em breve.",
+        });
+        
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } catch (fetchError) {
+        clearTimeout(timeoutId);
+        
+        if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+          throw new Error('Tempo de espera excedido. Verifique sua conexão e tente novamente.');
+        }
+        throw fetchError;
       }
-      
-      toast({
-        title: "Mensagem enviada!",
-        description: "Entraremos em contato em breve.",
-      });
-      
-      setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -68,12 +84,25 @@ const Contact = () => {
           }
         });
         setErrors(fieldErrors);
-      } else {
+        
         toast({
-          title: "Erro ao enviar",
-          description: error instanceof Error ? error.message : "Tente novamente mais tarde.",
+          title: "⚠️ Dados inválidos",
+          description: "Verifique os campos em vermelho e tente novamente.",
           variant: "destructive",
         });
+      } else {
+        const errorMessage = error instanceof Error 
+          ? error.message 
+          : "Erro ao enviar mensagem. Tente novamente mais tarde.";
+        
+        toast({
+          title: "❌ Erro ao enviar",
+          description: errorMessage,
+          variant: "destructive",
+        });
+        
+        // Log do erro para debugging (visível no console do navegador)
+        console.error('Erro no envio do formulário:', error);
       }
     } finally {
       setIsSubmitting(false);

@@ -67,38 +67,53 @@ npm run lint             # Executa o linter
 npm run deploy:cloudflare # Deploy direto para Cloudflare Pages
 ```
 
-## 📧 Formulário de Contato
+## 📧 Formulário de Contato - 100% Gratuito
 
-O formulário de contato está totalmente funcional e envia emails via **Cloudflare Workers** + **MailChannels**.
+O formulário de contato está totalmente funcional e envia emails via **Web3Forms** (serviço gratuito).
+
+### 🚀 Setup Rápido (5 minutos)
+
+1. **Crie conta gratuita no Web3Forms**  
+   Acesse: https://web3forms.com/ e clique em "Get Started Free"
+
+2. **Copie sua Access Key**  
+   No painel, crie uma nova key (1 clique)
+
+3. **Configure no Cloudflare Pages**  
+   - Vá em: Settings > Environment Variables
+   - Adicione: `WEB3FORMS_ACCESS_KEY` = `sua_key_aqui`
+
+4. **Faça deploy!**  
+   Pronto! Os emails chegarão em `rodrigo.azevedo1988@gmail.com`
 
 ### Como Funciona
 
 1. Usuário preenche o formulário no site
 2. Dados são validados (Zod schema)
 3. Requisição enviada para `/api/send-email` (Cloudflare Worker)
-4. Email enviado via MailChannels para `rodrigo.azevedo1988@gmail.com`
+4. Email enviado via **Web3Forms** (ou fallback para FormSubmit)
+5. Você recebe o email no Gmail!
 
 ### Testar Localmente
 
-Para testar o envio de emails em desenvolvimento:
-
 ```bash
-# 1. Build do projeto
+# 1. Crie arquivo .dev.vars na raiz
+echo "WEB3FORMS_ACCESS_KEY=sua_key_aqui" > .dev.vars
+
+# 2. Build e execute com Wrangler
 npm run build
+npx wrangler pages dev dist --port 8788
 
-# 2. Executar com Wrangler (simula Cloudflare Workers)
-npm run dev:wrangler
-
-# Acesse: http://localhost:8788
+# 3. Acesse: http://localhost:8788
 ```
 
-### Em Produção
+### Fallback Automático
 
-Após o deploy no Cloudflare Pages, o formulário funcionará automaticamente.
+Se o Web3Forms falhar, o sistema automaticamente tenta via **FormSubmit** (sem configuração adicional).
 
 **Importante:** Verifique a pasta de spam ao testar pela primeira vez.
 
-📚 Veja mais detalhes em: [`functions/README.md`](./functions/README.md)
+📚 **[Documentação completa →](./functions/README.md)** (troubleshooting, logs, alternativas)
 
 ## 📁 Estrutura do Projeto
 
@@ -137,11 +152,21 @@ O projeto utiliza o **shadcn/ui** com Tailwind CSS, garantindo:
 
 ### Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto se necessário:
+Para o formulário de contato funcionar, você precisa configurar:
 
-```env
-# Adicione suas variáveis aqui
+**Cloudflare Pages (Produção):**
 ```
+Settings > Environment Variables:
+WEB3FORMS_ACCESS_KEY = sua_access_key_do_web3forms
+```
+
+**Desenvolvimento Local (opcional):**
+```bash
+# Crie arquivo .dev.vars na raiz
+WEB3FORMS_ACCESS_KEY=sua_access_key_aqui
+```
+
+🔑 **Como obter:** Acesse https://web3forms.com/ e crie uma conta gratuita
 
 ### Personalização
 
