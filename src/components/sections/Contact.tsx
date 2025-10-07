@@ -38,7 +38,7 @@ const Contact = () => {
       const validatedData = contactSchema.parse(formData);
       setIsSubmitting(true);
       
-      // Envio real via API do Cloudflare Workers
+      // Enviar via backend do Cloudflare
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -53,14 +53,9 @@ const Contact = () => {
         throw new Error(result.error || 'Erro ao enviar mensagem');
       }
       
-      // Verificar se está em modo desenvolvimento
-      const isDev = import.meta.env.DEV;
-      
       toast({
-        title: isDev ? "✅ Simulado (Dev)" : "Mensagem enviada!",
-        description: isDev 
-          ? "Modo desenvolvimento - Em produção será enviado para rodrigo.azevedo1988@gmail.com" 
-          : "Entraremos em contato em breve.",
+        title: "Mensagem enviada!",
+        description: "Entraremos em contato em breve.",
       });
       
       setFormData({ name: "", email: "", phone: "", message: "" });
