@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 100% 11%;
+    --foreground: 180 100% 95%;
+
+    --card: 215 45% 15%;
+    --card-foreground: 180 100% 95%;
+
+    --popover: 215 45% 15%;
+    --popover-foreground: 180 100% 95%;
+
+    --primary: 210 100% 11%;
+    --primary-foreground: 180 100% 95%;
+
+    --secondary: 215 40% 18%;
+    --secondary-foreground: 180 100% 95%;
+
+    --muted: 215 35% 20%;
+    --muted-foreground: 180 20% 65%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 210 100% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 40% 22%;
+    --input: 215 40% 22%;
+    --ring: 180 100% 50%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 210 100% 12%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 210 100% 11%;
+    --sidebar-accent: 215 40% 18%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 215 40% 22%;
+    --sidebar-ring: 180 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 11%), hsl(215 45% 15%));
+    --gradient-accent: linear-gradient(135deg, hsl(180 100% 50%), hsl(203 92% 62%));
+    --gradient-hero: linear-gradient(180deg, hsl(210 100% 11%), hsl(215 40% 18%));
+    --gradient-animated: linear-gradient(270deg, hsl(203 92% 62%), hsl(180 100% 50%), hsl(203 92% 62%));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsla(180 100% 50% / 0.4);
+    --shadow-card: 0 20px 50px -15px hsla(180 100% 50% / 0.3);
+    --shadow-elevated: 0 25px 60px -20px hsla(180 100% 50% / 0.4);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 210 100% 11%;
+    --foreground: 180 100% 95%;
+
+    --card: 215 45% 15%;
+    --card-foreground: 180 100% 95%;
+
+    --popover: 215 45% 15%;
+    --popover-foreground: 180 100% 95%;
+
+    --primary: 210 100% 11%;
+    --primary-foreground: 180 100% 95%;
+
+    --secondary: 215 40% 18%;
+    --secondary-foreground: 180 100% 95%;
+
+    --muted: 215 35% 20%;
+    --muted-foreground: 180 20% 65%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 210 100% 11%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 40% 22%;
+    --input: 215 40% 22%;
+    --ring: 180 100% 50%;
+    --sidebar-background: 210 100% 12%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 210 100% 11%;
+    --sidebar-accent: 215 40% 18%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 215 40% 22%;
+    --sidebar-ring: 180 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent via-cyan-400 to-accent bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: 1rem;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(135deg, hsl(180 100% 50%), hsl(203 92% 62%));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.4), 0 20px 50px -15px rgba(0, 242, 254, 0.3);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 60px -20px rgba(0, 242, 254, 0.4);
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
