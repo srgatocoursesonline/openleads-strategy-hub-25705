@@ -122,18 +122,46 @@ Crie um arquivo `.env` na raiz do projeto se necessário:
 
 ## 🚀 Deploy
 
+### Cloudflare Pages (Recomendado)
+
+Este projeto está configurado para deploy no Cloudflare Pages.
+
+**Deploy Rápido:**
+```bash
+# Via Dashboard (conectar repositório Git)
+# Acesse: https://dash.cloudflare.com/
+# Configure: Build command = npm run build, Output = dist
+
+# Via CLI
+npm install -g wrangler
+wrangler login
+npm run deploy:cloudflare
+```
+
+📚 **Guias de Deploy:**
+- [Guia Rápido](./DEPLOY-QUICK-START.md) - 5 minutos
+- [Guia Completo](./DEPLOY-CLOUDFLARE.md) - Documentação detalhada
+
 ### Build de Produção
 
 ```bash
+# Build padrão
 npm run build
+
+# Build com arquivos Cloudflare
+npm run build:cloudflare
+
+# Preview local do build
+npm run preview
 ```
 
 Os arquivos otimizados estarão em `/dist`
 
-### Servidores Recomendados
+### Outros Servidores
 
+Também compatível com:
 - Vercel
-- Netlify
+- Netlify  
 - GitHub Pages
 - AWS S3 + CloudFront
 

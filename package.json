@@ -7,8 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
+    "build:cloudflare": "npm run build && npm run copy-cloudflare-files",
+    "copy-cloudflare-files": "copy _headers dist\\_headers && copy _redirects dist\\_redirects",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:cloudflare": "npm run build:cloudflare && wrangler pages deploy dist --project-name=openleads-strategy-hub",
+    "deploy:preview": "npm run build:cloudflare && wrangler pages deploy dist --project-name=openleads-strategy-hub --branch=preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

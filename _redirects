@@ -1,0 +1,9 @@
+# Redirects para Cloudflare Pages
+# Este arquivo garante que o React Router funcione corretamente
+
+# SPA fallback - todas as rotas retornam index.html
+/*    /index.html   200
+
+# Opcional: Redirects específicos
+# /old-page    /new-page    301
+
