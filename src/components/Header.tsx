@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Linkedin, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -21,7 +21,14 @@ const Header = () => {
     { label: "Sobre", href: "#about" },
     { label: "Serviços", href: "#services" },
     { label: "OSINT", href: "#differentials" },
+    { label: "Por Que Nós", href: "#why-us" },
     { label: "Contato", href: "#contact" },
+  ];
+
+  const socialLinks = [
+    { icon: Instagram, href: "https://instagram.com/openleadsstrategy", label: "Instagram" },
+    { icon: Linkedin, href: "https://linkedin.com/company/openleadsstrategy", label: "LinkedIn" },
+    { icon: Facebook, href: "https://facebook.com/openleadsstrategy", label: "Facebook" },
   ];
 
   const handleMenuClick = (href: string) => {
@@ -78,13 +85,27 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* CTA Button Desktop */}
-            <div className="hidden md:block">
+            {/* Social Links + CTA Button Desktop */}
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-accent/10 transition-colors text-muted-foreground hover:text-accent"
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
               <Button
                 onClick={() => handleMenuClick("#contact")}
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 hover-glow"
               >
-                Fale Conosco
+                Solicitar Orçamento
               </Button>
             </div>
 
@@ -153,7 +174,7 @@ const Header = () => {
                     onClick={() => handleMenuClick("#contact")}
                     className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold min-h-[48px] hover-glow"
                   >
-                    Fale Conosco
+                    Solicitar Orçamento
                   </Button>
                 </motion.div>
               </nav>

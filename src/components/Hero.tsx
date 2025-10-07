@@ -1,8 +1,44 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, TrendingUp, Users, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [counters, setCounters] = useState({ projects: 0, satisfaction: 0, experience: 0 });
+
+  useEffect(() => {
+    const duration = 2000;
+    const steps = 60;
+    const interval = duration / steps;
+    
+    const targets = { projects: 500, satisfaction: 98, experience: 5 };
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      
+      setCounters({
+        projects: Math.floor(targets.projects * progress),
+        satisfaction: Math.floor(targets.satisfaction * progress),
+        experience: Math.floor(targets.experience * progress),
+      });
+
+      if (step >= steps) {
+        setCounters(targets);
+        clearInterval(timer);
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const stats = [
+    { icon: Award, label: "Projetos Entregues", value: `+${counters.projects}` },
+    { icon: TrendingUp, label: "Satisfação", value: `${counters.satisfaction}%` },
+    { icon: Users, label: "Anos de Experiência", value: `+${counters.experience}` },
+  ];
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">{/* ... keep existing code */}
       {/* Animated Background */}
@@ -64,6 +100,36 @@ const Hero = () => {
             >
               Nossos Serviços
             </Button>
+          </motion.div>
+
+          {/* Estatísticas */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 px-4 max-w-3xl mx-auto"
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="flex justify-center mb-2">
+                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
+                    <stat.icon className="w-6 h-6 text-accent" />
+                  </div>
+                </div>
+                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>

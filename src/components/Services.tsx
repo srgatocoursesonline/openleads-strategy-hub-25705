@@ -12,32 +12,38 @@ const Services = () => {
     {
       icon: Search,
       title: "OSINT",
-      description: "Inteligência de fontes abertas para análise competitiva, investigação de mercado e identificação de oportunidades estratégicas.",
+      description: "Investigação digital profunda, análise de concorrência e inteligência de mercado usando técnicas avançadas de coleta e análise de dados.",
+      features: ["Monitoramento de marca", "Análise de ameaças", "Due diligence digital"],
     },
     {
       icon: Megaphone,
-      title: "Marketing Digital",
-      description: "Estratégias completas de marketing digital com foco em performance e resultados mensuráveis para o seu negócio.",
+      title: "Marketing Digital de Performance",
+      description: "Campanhas orientadas a ROI com métricas claras, rastreamento detalhado e otimização constante para resultados reais.",
+      features: ["Google Ads", "Meta Ads", "Remarketing estratégico"],
     },
     {
       icon: TrendingUp,
-      title: "SEO",
-      description: "Otimização avançada para mecanismos de busca, aumentando sua visibilidade orgânica e gerando tráfego qualificado.",
+      title: "SEO & Tráfego Orgânico",
+      description: "Posicione seu site no topo do Google com estratégias comprovadas de otimização on-page, off-page e conteúdo.",
+      features: ["Auditoria SEO", "Link building", "Content strategy"],
     },
     {
       icon: Share2,
-      title: "Social Media",
-      description: "Gestão estratégica de redes sociais com conteúdo engajador e campanhas que convertem seguidores em clientes.",
+      title: "Social Media Management",
+      description: "Gestão completa das redes sociais com planejamento estratégico, criação de conteúdo e engajamento autêntico.",
+      features: ["Planejamento editorial", "Design criativo", "Community management"],
     },
     {
       icon: Globe,
       title: "Criação de Sites",
-      description: "Desenvolvimento de sites modernos, responsivos e otimizados para conversão e experiência do usuário.",
+      description: "Desenvolvimento web moderno com design responsivo, experiência excepcional e otimização total para conversões.",
+      features: ["Design UX/UI", "Responsive", "E-commerce"],
     },
     {
       icon: Target,
-      title: "Tráfego Pago",
-      description: "Campanhas de anúncios pagos altamente segmentadas no Google Ads e Meta Ads com máximo ROI.",
+      title: "Consultoria Estratégica",
+      description: "Análise profunda do seu negócio, diagnóstico de oportunidades e roadmap completo de crescimento digital.",
+      features: ["Diagnóstico 360°", "Planejamento tático", "Acompanhamento contínuo"],
     },
   ];
 
@@ -66,17 +72,25 @@ const Services = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full bg-card border-accent/30 hover:border-accent/50 card-hover rounded-2xl shadow-lg">{/* ... keep existing code */}
+              <Card className="h-full bg-card border-accent/30 hover:border-accent/50 card-hover rounded-2xl shadow-lg">
                 <CardHeader>
-                  <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
-                    <service.icon className="w-7 h-7 text-accent" />
+                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
+                    <service.icon className="w-8 h-8 text-accent" />
                   </div>
-                  <CardTitle className="text-2xl">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed">
+                  <CardTitle className="text-2xl mb-3">{service.title}</CardTitle>
+                  <CardDescription className="text-muted-foreground leading-relaxed text-base">
                     {service.description}
                   </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             </motion.div>
