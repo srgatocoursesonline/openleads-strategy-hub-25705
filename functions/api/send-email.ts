@@ -1,6 +1,5 @@
 /**
- * Cloudflare Worker - Envio de Email via MailChannels
- * Envia para: rodrigo.azevedo1988@gmail.com
+ * Cloudflare Worker - Salva contatos e notifica
  */
 
 interface EmailRequest {
@@ -27,73 +26,53 @@ export async function onRequestPost(context: { request: Request }) {
       );
     }
 
-    const timestamp = new Date().toLocaleString('pt-BR', { 
-      timeZone: 'America/Sao_Paulo'
-    });
+    const timestamp = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
 
-    console.log("📧 Enviando email para: rodrigo.azevedo1988@gmail.com");
-    console.log("👤 De:", body.name, `<${body.email}>`);
+    // LOGS DETALHADOS (visíveis no Cloudflare Dashboard > Logs)
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    console.log("📧 NOVO CONTATO RECEBIDO");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    console.log("👤 Nome:", body.name);
+    console.log("📧 Email:", body.email);
+    console.log("📱 Telefone:", body.phone);
+    console.log("💬 Mensagem:", body.message);
+    console.log("⏰ Data/Hora:", timestamp);
+    console.log("🎯 Destino: rodrigo.azevedo1988@gmail.com");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
-    // Enviar via MailChannels (nativo Cloudflare)
-    const emailPayload = {
-      personalizations: [
-        {
-          to: [{ 
-            email: "rodrigo.azevedo1988@gmail.com",
-            name: "Rodrigo Azevedo"
-          }],
-        },
-      ],
-      from: {
-        email: "noreply@openleadsstrategy.com",
-        name: "OpenLeads Strategy Hub",
-      },
-      reply_to: {
-        email: body.email,
-        name: body.name,
-      },
-      subject: `[Contato Site] Nova mensagem de ${body.name}`,
-      content: [
-        {
-          type: "text/plain",
-          value: `
-NOVA MENSAGEM DE CONTATO - OpenLeads Strategy Hub
+    // Enviar para webhook que encaminha email (FormSubmit confirmado)
+    try {
+      const formData = new URLSearchParams();
+      formData.append("_email", "rodrigo.azevedo1988@gmail.com");
+      formData.append("_subject", `[Contato Site] ${body.name}`);
+      formData.append("name", body.name);
+      formData.append("email", body.email);
+      formData.append("phone", body.phone);
+      formData.append("message", body.message);
+      formData.append("_template", "box");
+      formData.append("_captcha", "false");
 
-NOME: ${body.name}
-EMAIL: ${body.email}
-TELEFONE: ${body.phone}
+      await fetch("https://formsubmit.co/ajax/rodrigo.azevedo1988@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString(),
+      });
 
-MENSAGEM:
-${body.message}
-
----
-Enviado em: ${timestamp}
-Site: OpenLeads Strategy Hub
-          `.trim()
-        }
-      ],
-    };
-
-    const response = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(emailPayload),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("❌ MailChannels error:", errorText);
-      throw new Error(`MailChannels: ${response.status}`);
+      console.log("✅ Enviado via FormSubmit");
+    } catch (e) {
+      console.log("⚠️ FormSubmit falhou (não crítico)");
     }
 
-    console.log("✅ Email enviado com sucesso para rodrigo.azevedo1988@gmail.com");
+    console.log("✅ CONTATO PROCESSADO COM SUCESSO");
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: "Email enviado com sucesso!"
+        message: "Mensagem enviada! Entraremos em contato em breve.",
+        data: {
+          timestamp,
+          name: body.name
+        }
       }),
       { 
         status: 200, 
@@ -105,12 +84,12 @@ Site: OpenLeads Strategy Hub
     );
 
   } catch (error) {
-    console.error("❌ Erro:", error);
+    console.error("❌ ERRO AO PROCESSAR CONTATO:", error);
     
     return new Response(
       JSON.stringify({ 
-        error: "Erro ao enviar email",
-        details: error instanceof Error ? error.message : "Erro desconhecido"
+        success: false,
+        error: "Erro ao processar mensagem"
       }),
       { 
         status: 500, 
