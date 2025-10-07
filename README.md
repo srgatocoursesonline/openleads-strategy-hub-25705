@@ -1,73 +1,152 @@
-# Welcome to your Lovable project
+# OpenLeads Strategy Hub
 
-## Project info
+> Website institucional da **OpenLeads Strategy** - Agência de Marketing Digital e OSINT
 
-**URL**: https://lovable.dev/projects/24322f68-220d-4f2c-8071-9aa14a250f93
+## 📋 Sobre o Projeto
 
-## How can I edit this code?
+Site institucional moderno e responsivo desenvolvido para a OpenLeads Strategy, uma agência especializada em inteligência estratégica (OSINT) e marketing digital data-driven.
 
-There are several ways of editing your application.
+### ✨ Características
 
-**Use Lovable**
+- 🎨 Design moderno com dark mode
+- 📱 Totalmente responsivo
+- ⚡ Performance otimizada com Vite
+- 🎭 Animações suaves com Framer Motion
+- 🧩 Componentes reutilizáveis com shadcn/ui
+- 🎯 SEO otimizado
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/24322f68-220d-4f2c-8071-9aa14a250f93) and start prompting.
+## 🛠️ Tecnologias
 
-Changes made via Lovable will be committed automatically to this repo.
+Este projeto utiliza:
 
-**Use your preferred IDE**
+- **React 18** - Biblioteca UI
+- **TypeScript** - Tipagem estática
+- **Vite** - Build tool e dev server
+- **Tailwind CSS** - Framework CSS utility-first
+- **shadcn/ui** - Componentes acessíveis
+- **Framer Motion** - Animações
+- **React Router** - Roteamento
+- **Lucide React** - Ícones
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Como Rodar o Projeto
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Pré-requisitos
 
-Follow these steps:
+- Node.js 18+ instalado
+- npm ou yarn
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Instalação
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# 1. Clone o repositório
+git clone <URL_DO_REPOSITORIO>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 2. Entre na pasta do projeto
+cd openleads-strategy-hub-25705
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 3. Instale as dependências
+npm install
+
+# 4. Execute o projeto em desenvolvimento
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+O projeto estará disponível em `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📦 Scripts Disponíveis
 
-**Use GitHub Codespaces**
+```bash
+npm run dev          # Inicia o servidor de desenvolvimento
+npm run build        # Build de produção
+npm run build:dev    # Build em modo desenvolvimento
+npm run preview      # Preview do build de produção
+npm run lint         # Executa o linter
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📁 Estrutura do Projeto
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Componentes React
+│   ├── ui/             # Componentes do shadcn/ui
+│   ├── Header.tsx      # Cabeçalho
+│   ├── Footer.tsx      # Rodapé
+│   ├── Hero.tsx        # Seção hero
+│   ├── About.tsx       # Sobre nós
+│   ├── Services.tsx    # Serviços
+│   ├── Differentials.tsx # Diferenciais (OSINT)
+│   ├── WhyUs.tsx       # Por que nós
+│   ├── Contact.tsx     # Contato
+│   └── ...
+├── pages/              # Páginas
+│   ├── Index.tsx       # Página principal
+│   └── NotFound.tsx    # Página 404
+├── hooks/              # Custom hooks
+├── lib/                # Utilitários
+├── App.tsx             # Componente principal
+└── main.tsx            # Entry point
+```
 
-This project is built with:
+## 🎨 Design System
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+O projeto utiliza o **shadcn/ui** com Tailwind CSS, garantindo:
 
-## How can I deploy this project?
+- Componentes acessíveis (WCAG AA+)
+- Design consistente
+- Dark mode integrado
+- Tokens de design customizáveis
 
-Simply open [Lovable](https://lovable.dev/projects/24322f68-220d-4f2c-8071-9aa14a250f93) and click on Share -> Publish.
+## 🔧 Configuração
 
-## Can I connect a custom domain to my Lovable project?
+### Variáveis de Ambiente
 
-Yes, you can!
+Crie um arquivo `.env` na raiz do projeto se necessário:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```env
+# Adicione suas variáveis aqui
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Personalização
+
+- **Cores**: Edite `tailwind.config.ts`
+- **Fontes**: Configuradas em `index.html` (Inter e Space Grotesk)
+- **Componentes**: Componentes shadcn em `src/components/ui/`
+
+## 📝 Convenções de Código
+
+- **Estilo**: ESLint + Prettier configurados
+- **TypeScript**: Modo estrito habilitado
+- **Componentes**: Funcionais com hooks
+- **Nomenclatura**: camelCase para variáveis, PascalCase para componentes
+- **Idioma**: Código e comentários em inglês, UI em português
+
+## 🚀 Deploy
+
+### Build de Produção
+
+```bash
+npm run build
+```
+
+Os arquivos otimizados estarão em `/dist`
+
+### Servidores Recomendados
+
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
+
+## 📄 Licença
+
+© 2025 OpenLeads Strategy. Todos os direitos reservados.
+
+## 🤝 Contato
+
+- **Email**: contato@openleadsstrategy.com
+- **Instagram**: [@openleadsstrategy](https://instagram.com/openleadsstrategy)
+- **LinkedIn**: [OpenLeads Strategy](https://linkedin.com/company/openleadsstrategy)
+
+---
+
+**Desenvolvido com ❤️ para OpenLeads Strategy**

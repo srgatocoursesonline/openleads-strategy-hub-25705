@@ -1,14 +1,14 @@
-import Header from "@/components/Header";
-import ScrollProgressBar from "@/components/ScrollProgressBar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import Differentials from "@/components/Differentials";
-import WhyUs from "@/components/WhyUs";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import ScrollToTop from "@/components/ScrollToTop";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import ScrollProgressBar from "@/components/common/ScrollProgressBar";
+import ScrollToTop from "@/components/common/ScrollToTop";
+import WhatsAppButton from "@/components/common/WhatsAppButton";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Services from "@/components/sections/Services";
+import Differentials from "@/components/sections/Differentials";
+import WhyUs from "@/components/sections/WhyUs";
+import Contact from "@/components/sections/Contact";
 
 const Index = () => {
   return (
