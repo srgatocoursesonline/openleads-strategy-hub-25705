@@ -2,6 +2,8 @@
 
 > Website institucional da **OpenLeads Strategy** - Agência de Marketing Digital e OSINT
 
+📚 **[Ver índice completo de documentação →](./DOCUMENTACAO-INDEX.md)**
+
 ## 📋 Sobre o Projeto
 
 Site institucional moderno e responsivo desenvolvido para a OpenLeads Strategy, uma agência especializada em inteligência estratégica (OSINT) e marketing digital data-driven.
