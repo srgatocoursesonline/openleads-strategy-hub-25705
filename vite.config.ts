@@ -14,4 +14,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Nota: Para testar o envio de emails localmente, use:
+  // wrangler pages dev dist --port 8788
+  // (depois de rodar: npm run build)
 });

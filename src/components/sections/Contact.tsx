@@ -38,8 +38,20 @@ const Contact = () => {
       const validatedData = contactSchema.parse(formData);
       setIsSubmitting(true);
       
-      // Simulação de envio - aqui você conectaria com seu backend ou serviço de email
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Envio real via API do Cloudflare Workers
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(validatedData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Erro ao enviar mensagem');
+      }
       
       toast({
         title: "Mensagem enviada!",
@@ -56,6 +68,12 @@ const Contact = () => {
           }
         });
         setErrors(fieldErrors);
+      } else {
+        toast({
+          title: "Erro ao enviar",
+          description: error instanceof Error ? error.message : "Tente novamente mais tarde.",
+          variant: "destructive",
+        });
       }
     } finally {
       setIsSubmitting(false);

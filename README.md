@@ -58,12 +58,47 @@ O projeto estará disponível em `http://localhost:8080`
 ## 📦 Scripts Disponíveis
 
 ```bash
-npm run dev          # Inicia o servidor de desenvolvimento
-npm run build        # Build de produção
-npm run build:dev    # Build em modo desenvolvimento
-npm run preview      # Preview do build de produção
-npm run lint         # Executa o linter
+npm run dev              # Inicia o servidor de desenvolvimento
+npm run dev:wrangler     # Dev com Cloudflare Workers (para testar emails)
+npm run build            # Build de produção
+npm run build:dev        # Build em modo desenvolvimento
+npm run preview          # Preview do build de produção
+npm run lint             # Executa o linter
+npm run deploy:cloudflare # Deploy direto para Cloudflare Pages
 ```
+
+## 📧 Formulário de Contato
+
+O formulário de contato está totalmente funcional e envia emails via **Cloudflare Workers** + **MailChannels**.
+
+### Como Funciona
+
+1. Usuário preenche o formulário no site
+2. Dados são validados (Zod schema)
+3. Requisição enviada para `/api/send-email` (Cloudflare Worker)
+4. Email enviado via MailChannels para `rodrigo.azevedo1988@gmail.com`
+
+### Testar Localmente
+
+Para testar o envio de emails em desenvolvimento:
+
+```bash
+# 1. Build do projeto
+npm run build
+
+# 2. Executar com Wrangler (simula Cloudflare Workers)
+npm run dev:wrangler
+
+# Acesse: http://localhost:8788
+```
+
+### Em Produção
+
+Após o deploy no Cloudflare Pages, o formulário funcionará automaticamente.
+
+**Importante:** Verifique a pasta de spam ao testar pela primeira vez.
+
+📚 Veja mais detalhes em: [`functions/README.md`](./functions/README.md)
 
 ## 📁 Estrutura do Projeto
 
