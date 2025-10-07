@@ -33,7 +33,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Coluna 1 - Logo + Descrição */}
           <div className="lg:col-span-1">
-            <h3 className="text-2xl font-bold gradient-text mb-4">OpenLeads Strategy</h3>
+            <img 
+              src="/logo.png" 
+              alt="OpenLeads Strategy" 
+              className="h-16 w-auto mb-4"
+            />
             <p className="text-slate-400 mb-6 text-sm leading-relaxed">
               Inteligência estratégica e marketing digital que transformam dados em resultados mensuráveis.
             </p>

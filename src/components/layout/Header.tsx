@@ -60,11 +60,18 @@ const Header = () => {
                 e.preventDefault();
                 handleMenuClick("#hero");
               }}
-              className="text-2xl font-bold gradient-text cursor-pointer"
+              className="cursor-pointer flex items-center gap-3"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              OpenLeads
+              <img 
+                src="/logo.png" 
+                alt="OpenLeads Strategy" 
+                className="h-14 w-auto"
+              />
+              <span className="text-xl font-bold gradient-text hidden sm:block">
+                OpenLeads Strategy
+              </span>
             </motion.a>
 
             {/* Desktop Menu */}
