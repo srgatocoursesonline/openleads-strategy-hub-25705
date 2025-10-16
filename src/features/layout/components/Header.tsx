@@ -65,7 +65,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
             >
               <img 
-                src="/logo.png" 
+                src="/assets/logo.png" 
                 alt="OpenLeads Strategy" 
                 className="h-14 w-auto"
               />

@@ -34,7 +34,7 @@ const Footer = () => {
           {/* Coluna 1 - Logo + Descrição */}
           <div className="lg:col-span-1">
             <img 
-              src="/logo.png" 
+              src="/assets/logo.png" 
               alt="OpenLeads Strategy" 
               className="h-16 w-auto mb-4"
             />
