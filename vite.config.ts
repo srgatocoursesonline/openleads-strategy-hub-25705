@@ -61,6 +61,9 @@ const mockEmailApi = (): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Configuração para GitHub Pages
+  base: '/openleads-strategy-hub-25705/',
+
   server: {
     host: "::",
     port: 8080,
