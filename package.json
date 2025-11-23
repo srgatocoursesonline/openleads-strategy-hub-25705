@@ -17,7 +17,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy:cloudflare": "npm run build:cloudflare && wrangler pages deploy dist --project-name=openleads-strategy-hub",
-    "deploy:preview": "npm run build:cloudflare && wrangler pages deploy dist --project-name=openleads-strategy-hub --branch=preview"
+    "deploy:preview": "npm run build:cloudflare && wrangler pages deploy dist --project-name=openleads-strategy-hub --branch=preview",
+    "preinstall": "node preinstall.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

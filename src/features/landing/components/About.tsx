@@ -58,16 +58,16 @@ const About = () => {
           className="max-w-4xl mx-auto text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Quem <span className="gradient-text">Somos</span>
+            Quem <span className="text-gradient-animated">Somos</span>
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p className="text-lg">
-              Somos uma agência de marketing digital especializada em <strong className="text-accent">OSINT (Open Source Intelligence)</strong>. 
-              Combinamos técnicas avançadas de inteligência de fontes abertas com estratégias de marketing 
+            <p className="text-lg text-reveal">
+              Somos uma agência de marketing digital especializada em <strong className="text-accent text-shimmer">OSINT (Open Source Intelligence)</strong>.
+              Combinamos técnicas avançadas de inteligência de fontes abertas com estratégias de marketing
               digital para entregar resultados que vão além das métricas convencionais.
             </p>
-            <p className="text-base">
-              <strong className="text-foreground">Nossa missão:</strong> Capacitar empresas a tomar decisões estratégicas baseadas em dados concretos, 
+            <p className="text-base text-reveal">
+              <strong className="text-foreground">Nossa missão:</strong> Capacitar empresas a tomar decisões estratégicas baseadas em dados concretos,
               identificando oportunidades invisíveis e criando vantagens competitivas sustentáveis no mercado digital.
             </p>
           </div>
@@ -81,12 +81,12 @@ const About = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-card border border-accent/30 rounded-2xl p-6 sm:p-8 text-center hover-glow"
+              className="bg-card border border-accent/30 rounded-2xl p-6 sm:p-8 text-center card-advanced-hover relative overflow-hidden bg-gradient-radial-hover"
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
-                <stat.icon className="w-8 h-8 text-accent" />
+              <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center pulse-scale">
+                <stat.icon className="w-8 h-8 text-accent icon-glow" />
               </div>
-              <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
+              <div className="text-4xl font-bold text-gradient-animated mb-2">{stat.value}</div>
               <div className="text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
@@ -99,8 +99,10 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mb-12"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold mb-4">Nossos Valores</h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+            Nossos <span className="text-gradient-animated">Valores</span>
+          </h3>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-reveal">
             Pilares que guiam nossas ações e definem nosso compromisso com a excelência
           </p>
         </motion.div>
@@ -112,14 +114,14 @@ const About = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-              className="bg-card/50 backdrop-blur border border-accent/20 rounded-xl p-6 hover:border-accent/40 transition-colors"
+              className="bg-card/50 backdrop-blur border border-accent/20 rounded-xl p-6 hover-lift-rotate hover:border-accent/60 transition-all duration-300 relative overflow-hidden bg-gradient-radial-hover group"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
-                  <value.icon className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors duration-300">
+                  <value.icon className="w-6 h-6 text-accent icon-glow" />
                 </div>
-                <h4 className="font-semibold mb-2">{value.title}</h4>
-                <p className="text-sm text-muted-foreground">{value.description}</p>
+                <h4 className="font-semibold mb-2 underline-animated">{value.title}</h4>
+                <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">{value.description}</p>
               </div>
             </motion.div>
           ))}
