@@ -127,9 +127,9 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Vamos <span className="gradient-text">Conversar?</span>
+            Vamos <span className="text-gradient-animated">Conversar?</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-reveal">
             Entre em contato e descubra como podemos transformar seu negócio com inteligência estratégica
           </p>
         </motion.div>
@@ -147,14 +147,14 @@ const Contact = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-start gap-4"
+                  className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300"
                 >
-                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-6 h-6 text-accent" />
+                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-all duration-300 pulse-scale">
+                    <info.icon className="w-6 h-6 text-accent icon-glow" />
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{info.label}</div>
-                    <div className="font-medium">{info.value}</div>
+                    <div className="font-medium group-hover:text-accent transition-colors duration-300">{info.value}</div>
                   </div>
                 </motion.div>
               ))}
@@ -211,11 +211,11 @@ const Contact = () => {
               
               <Button
                 type="submit"
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold hover-glow min-h-[56px]"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold hover-glow min-h-[56px] hover:scale-105 transition-all duration-300 group"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-                <Send className="ml-2 w-4 h-4" />
+                <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </form>
           </motion.div>

@@ -53,9 +53,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30"
+            className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105"
           >
-            <Shield className="w-4 h-4 text-accent" />
+            <Shield className="w-4 h-4 text-accent pulse-scale" />
             <span className="text-xs sm:text-sm font-medium text-accent">Inteligência + Marketing Digital</span>
           </motion.div>
 
@@ -66,7 +66,7 @@ const Hero = () => {
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight px-4"
           >
             Transformamos Dados em{" "}
-            <span className="gradient-text">Resultados</span>
+            <span className="text-gradient-animated">Resultados</span>
           </motion.h1>
 
           <motion.p
@@ -84,18 +84,18 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center px-4"
           >
-            <Button 
-              size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-base sm:text-lg hover-glow group min-h-[56px]"
+            <Button
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-base sm:text-lg hover-glow group min-h-[56px] hover:scale-105 transition-all duration-300"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Entre em Contato
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform bounce-soft" />
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="outline"
-              className="border-accent/30 hover:bg-accent/10 font-semibold px-8 py-6 text-base sm:text-lg min-h-[56px]"
+              className="border-accent/30 hover:bg-accent/10 hover:border-accent/60 font-semibold px-8 py-6 text-base sm:text-lg min-h-[56px] hover:scale-105 transition-all duration-300"
               onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Nossos Serviços
@@ -115,17 +115,17 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                className="text-center"
+                className="text-center group cursor-pointer"
               >
                 <div className="flex justify-center mb-2">
-                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
-                    <stat.icon className="w-6 h-6 text-accent" />
+                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300 pulse-scale">
+                    <stat.icon className="w-6 h-6 text-accent icon-glow" />
                   </div>
                 </div>
-                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">
+                <div className="text-3xl sm:text-4xl font-bold text-gradient-animated mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                   {stat.label}
                 </div>
               </motion.div>

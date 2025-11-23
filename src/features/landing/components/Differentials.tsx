@@ -43,16 +43,16 @@ const Differentials = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-6">
-            <Shield className="w-4 h-4 text-accent" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-6 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105">
+            <Shield className="w-4 h-4 text-accent pulse-scale" />
             <span className="text-sm font-medium text-accent">Nosso Diferencial</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Expertise em <span className="gradient-text">OSINT</span>
+            Expertise em <span className="text-gradient-animated">OSINT</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Transformamos dados públicos em inteligência estratégica. Nossa expertise em Open Source Intelligence 
-            permite descobrir insights invisíveis, antecipar movimentos do mercado e criar estratégias baseadas 
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-reveal">
+            Transformamos dados públicos em inteligência estratégica. Nossa expertise em Open Source Intelligence
+            permite descobrir insights invisíveis, antecipar movimentos do mercado e criar estratégias baseadas
             em informações concretas que seus concorrentes não têm acesso.
           </p>
         </motion.div>
@@ -64,15 +64,15 @@ const Differentials = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-card border border-accent/30 rounded-2xl p-6 sm:p-8 hover-glow shadow-lg group"
+              className="bg-card border border-accent/30 rounded-2xl p-6 sm:p-8 card-advanced-hover shadow-lg group relative overflow-hidden bg-gradient-radial-hover"
             >
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                  <item.icon className="w-7 h-7 text-accent" />
+                <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-all duration-300 pulse-scale">
+                  <item.icon className="w-7 h-7 text-accent icon-glow" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <h3 className="text-xl font-bold mb-3 underline-animated">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
                     {item.description}
                   </p>
                 </div>

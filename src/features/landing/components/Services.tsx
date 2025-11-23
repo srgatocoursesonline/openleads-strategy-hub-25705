@@ -57,9 +57,9 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Nossos <span className="gradient-text">Serviços</span>
+            Nossos <span className="text-gradient-animated">Serviços</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-reveal">
             Soluções completas de marketing digital e inteligência estratégica para impulsionar seu negócio
           </p>
         </motion.div>
@@ -72,12 +72,12 @@ const Services = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full bg-card border-accent/30 hover:border-accent/50 card-hover rounded-2xl shadow-lg">
+              <Card className="h-full bg-card border-accent/30 hover:border-accent/50 card-advanced-hover rounded-2xl shadow-lg relative overflow-hidden bg-gradient-radial-hover">
                 <CardHeader>
-                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
-                    <service.icon className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mb-4 pulse-scale">
+                    <service.icon className="w-8 h-8 text-accent icon-glow" />
                   </div>
-                  <CardTitle className="text-2xl mb-3">{service.title}</CardTitle>
+                  <CardTitle className="text-2xl mb-3 underline-animated">{service.title}</CardTitle>
                   <CardDescription className="text-muted-foreground leading-relaxed text-base">
                     {service.description}
                   </CardDescription>
@@ -85,8 +85,8 @@ const Services = () => {
                 <CardContent>
                   <ul className="space-y-2">
                     {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground transition-all duration-300 hover:text-accent hover:translate-x-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 pulse-scale" />
                         {feature}
                       </li>
                     ))}
